@@ -84,28 +84,40 @@ bool SortedListA::PutItem(ItemType item)
 		return false;
 	}
 
-	// Find the correct insertion index for 'item'
-	int loc = 0;
-	// Continue while items are less than 'item'
-	while (loc < length&& info[loc].ComparedTo(item) == LESS)
+	// Use binary search to find the insertion index.
+	// 'low' will end up as the index where the item should be inserted.
+	int low = 0;
+	int high = length;  // high is set to 'length' so that the search space is [0, length)
+
+	while (low < high)
 	{
-		loc++;
+		int mid = (low + high) / 2;
+		// If info[mid] is less than item, search in the right half.
+		if (info[mid].ComparedTo(item) == LESS)
+		{
+			low = mid + 1;
+		}
+		else  // info[mid] is greater than or equal to item
+		{
+			high = mid;
+		}
 	}
 
-	// Shift items to the right to create space for the new item
-	for (int i = length; i > loc; i--)
+	// 'low' is the correct insertion index.
+	// Shift items to the right to create space for the new item.
+	for (int i = length; i > low; i--)
 	{
 		info[i] = info[i - 1];
 	}
 
-	// Insert the new item at the correct location
-	info[loc] = item;
+	// Insert the new item and update the length.
+	info[low] = item;
 	length++;
-
 	return true;
 }
 
 
+// Needs to be updated.
 bool SortedListA::DeleteItem(ItemType item)
 {
 	if (IsEmpty())
