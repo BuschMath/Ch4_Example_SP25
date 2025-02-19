@@ -7,7 +7,6 @@ class SortedListA
 {
 public:
 	SortedListA();
-	SortedListA();
 	void MakeEmpty();
 	bool IsFull() const;
 	bool IsEmpty() const;

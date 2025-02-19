@@ -14,6 +14,7 @@ SortedListA::~SortedListA()
 void SortedListA::MakeEmpty()
 {
 	length = 0;
+	currentPos = -1;
 }
 
 bool SortedListA::IsFull() const
@@ -117,11 +118,11 @@ bool SortedListA::PutItem(ItemType item)
 }
 
 
-void SortedListA::DeleteItem(ItemType item)
+bool SortedListA::DeleteItem(ItemType item)
 {
 	if (IsEmpty())
 	{
-		return;
+		return false;
 	}
 
 	// Use binary search to locate the item.
@@ -152,7 +153,7 @@ void SortedListA::DeleteItem(ItemType item)
 	// If the item wasn't found, simply return.
 	if (index == -1)
 	{
-		return;
+		return false;
 	}
 
 	// Shift elements to the left to remove the item.
@@ -161,6 +162,7 @@ void SortedListA::DeleteItem(ItemType item)
 		info[i] = info[i + 1];
 	}
 	length--;
+	return true;
 }
 
 void SortedListA::ResetList()
