@@ -117,27 +117,50 @@ bool SortedListA::PutItem(ItemType item)
 }
 
 
-// Needs to be updated.
-bool SortedListA::DeleteItem(ItemType item)
+void SortedListA::DeleteItem(ItemType item)
 {
 	if (IsEmpty())
 	{
-		return false;
+		return;
 	}
-	else
+
+	// Use binary search to locate the item.
+	int low = 0;
+	int high = length - 1;
+	int index = -1;  // This will store the found index.
+
+	while (low <= high)
 	{
-		for (int i = 0; i < length; i++)
+		int mid = (low + high) / 2;
+		int result = info[mid].ComparedTo(item);
+
+		if (result == EQUAL)
 		{
-			if (info[i].ComparedTo(item) == EQUAL)
-			{
-				info[i] = info[length - 1];
-				length--;
-				return true;
-			}
+			index = mid;
+			break;
+		}
+		else if (result == GREATER)
+		{
+			high = mid - 1;
+		}
+		else  // result == LESS
+		{
+			low = mid + 1;
 		}
 	}
 
-	return false;
+	// If the item wasn't found, simply return.
+	if (index == -1)
+	{
+		return;
+	}
+
+	// Shift elements to the left to remove the item.
+	for (int i = index; i < length - 1; i++)
+	{
+		info[i] = info[i + 1];
+	}
+	length--;
 }
 
 void SortedListA::ResetList()
