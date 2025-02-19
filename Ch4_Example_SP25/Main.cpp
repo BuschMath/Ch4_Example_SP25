@@ -25,5 +25,14 @@ int main()
 		cout << "Item " << i + 1 << ": " << list.GetNextItem().getValue() << endl;
 	}
 
+	cout << "Deleting item 3..." << endl;
+	item.setValue(3);
+	list.DeleteItem(item);
+	list.ResetList();
+	for (int i = 0; i < list.GetLength(); i++)
+	{
+		cout << "Item " << i + 1 << ": " << list.GetNextItem().getValue() << endl;
+	}
+
 	return 0;
 }
