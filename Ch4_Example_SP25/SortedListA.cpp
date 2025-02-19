@@ -1,14 +1,16 @@
 #include "SortedListA.h"
 
-SortedListA::SortedListA()
+SortedListA::SortedListA(int size)
 {
 	length = 0;
 	currentPos = -1;
+	maxSize = size;
+	info = new ItemType[maxSize];
 }
 
 SortedListA::~SortedListA()
 {
-	MakeEmpty();
+	delete info;
 }
 
 void SortedListA::MakeEmpty()

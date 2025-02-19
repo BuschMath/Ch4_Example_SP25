@@ -6,7 +6,7 @@
 class SortedListA
 {
 public:
-	SortedListA();
+	SortedListA(int size);
 	~SortedListA();
 	void MakeEmpty();
 	bool IsFull() const;
@@ -20,8 +20,9 @@ public:
 
 private:
 	int length;
-	ItemType info[MAX_ITEMS];
+	ItemType* info;
 	int currentPos;
+	int maxSize;
 };
 
 #endif // !SORTEDLISTA_H
